@@ -1,0 +1,5 @@
+{
+  "name": "المعين لحفظ القرآن الكريم",
+  "description": "An application to help users memorize the Holy Quran by listening to verses recited by Sheikh Al-Husary and using a color-coding system to track memorization progress.",
+  "requestFramePermissions": []
+}
