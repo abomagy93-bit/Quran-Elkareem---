@@ -43,14 +43,14 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
 
   return (
     <div className="text-center px-4"> {/* Removed padding-bottom */}
-      <h2 className="text-3xl font-bold mb-2 text-amber-400 animate-fadeInUp opacity-0" style={{animationDelay: '100ms'}}>
+      <h2 className="text-2xl md:text-3xl font-bold mb-2 text-amber-400 animate-fadeInUp opacity-0" style={{animationDelay: '100ms'}}>
         {surah.name} ({surah.englishName})
       </h2>
       <p className="mb-6 text-lg text-gray-400 animate-fadeInUp opacity-0" style={{animationDelay: '200ms'}}>{surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية'}</p>
       
       {surah.displayBasmalah && (
           <div className="my-8 animate-fadeInUp opacity-0" style={{animationDelay: '300ms'}}>
-            <p className="text-3xl font-quran text-white">
+            <p className="text-2xl md:text-3xl font-quran text-white">
               بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
             </p>
           </div>
@@ -106,7 +106,7 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
                   </span>
                 )}
                 
-                <p className={`text-right text-3xl leading-loose font-quran ${isSelected ? 'text-white' : 'text-gray-200'}`} dir="rtl">
+                <p className={`text-right text-2xl md:text-3xl leading-relaxed font-quran ${isSelected ? 'text-white' : 'text-gray-200'}`} dir="rtl">
                   {ayah.text} <span className="text-amber-400">({ayah.numberInSurah})</span>
                 </p>
 

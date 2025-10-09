@@ -57,7 +57,7 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
         </header>
         
         <div className="p-8 border-b border-slate-700 flex-shrink-0">
-          <p className="text-3xl leading-relaxed font-quran text-gray-200 text-right" dir="rtl">
+          <p className="text-2xl md:text-3xl leading-relaxed font-quran text-gray-200 text-right" dir="rtl">
             {ayah?.text}
           </p>
         </div>
