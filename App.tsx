@@ -212,9 +212,9 @@ export function App() {
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-amber-400 leading-tight">قرآن الكريم</h1>
               <p className="text-base text-gray-200 mt-1 leading-tight">المعين لحفظ كلام رب العالمين</p>
-              {surahInfoString && <p className="text-sm text-gray-400 mt-2 truncate">{surahInfoString}</p>}
+              {surahInfoString && <p className="text-xs text-gray-400 mt-1 truncate">{surahInfoString}</p>}
             </div>
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-0">
                <HeaderButton
                   onClick={() => setIsSelectorPanelOpen(p => !p)}
                   label="الإعدادات"
