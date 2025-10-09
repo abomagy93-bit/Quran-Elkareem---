@@ -52,7 +52,7 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
         </div>
 
         <div className="flex-grow w-full flex flex-col items-center justify-center overflow-y-auto">
-            <p className="text-4xl md:text-6xl lg:text-7xl leading-relaxed font-arabic text-gray-200 text-center" dir="rtl">
+            <p className="text-4xl md:text-6xl lg:text-7xl leading-snug font-arabic text-gray-200 text-center" dir="rtl">
                 {ayah.text} <span className="text-amber-400">({ayah.numberInSurah})</span>
             </p>
             {ayah.translationText && (

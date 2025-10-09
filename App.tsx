@@ -22,8 +22,8 @@ const HeaderButton = React.forwardRef<HTMLButtonElement, {
   children: React.ReactNode;
   className?: string;
 }>(({ onClick, label, title, children, className = '' }, ref) => (
-  <div className="flex flex-col items-center justify-center w-16 text-center">
-    <button ref={ref} onClick={onClick} title={title} aria-label={title} className={`h-12 w-12 flex items-center justify-center rounded-full transition-colors ${className}`}>
+  <div className="flex flex-col items-center justify-center w-14 text-center">
+    <button ref={ref} onClick={onClick} title={title} aria-label={title} className={`h-10 w-10 flex items-center justify-center rounded-full transition-colors ${className}`}>
       {children}
     </button>
     <span className="text-xs text-gray-400 mt-1">{label}</span>
@@ -222,8 +222,8 @@ export function App() {
                   className="hover:bg-slate-700"
                   ref={settingsButtonRef}
                >
-                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-7 w-7 transition-transform duration-300 ${isSelectorPanelOpen ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z" />
+                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-300 ${isSelectorPanelOpen ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066 2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                  </svg>
                </HeaderButton>
@@ -233,7 +233,7 @@ export function App() {
                   title="أوقات الصلاة"
                   className="hover:bg-slate-700 text-white"
                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V9.586a1 1 0 01.293-.707l6-6a1 1 0 011.414 0l6 6a1 1 0 01.293.707V21M7 21v-4a1 1 0 011-1h8a1 1 0 011 1v4" />
                   </svg>
                </HeaderButton>
@@ -243,7 +243,7 @@ export function App() {
                  title="إذاعة القرآن الكريم"
                  className={`hover:bg-slate-700 ${isRadioPlaying ? 'text-amber-400' : 'text-white'}`}
                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                      <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636a9 9 0 010 12.728m-12.728-12.728a9 9 0 0112.728 0M12 18a6 6 0 100-12 6 6 0 000 12z" />
                      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>

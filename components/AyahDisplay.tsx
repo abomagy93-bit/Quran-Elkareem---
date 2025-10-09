@@ -106,7 +106,7 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
                   </span>
                 )}
                 
-                <p className={`text-right text-2xl md:text-3xl leading-relaxed font-quran ${isSelected ? 'text-white' : 'text-gray-200'}`} dir="rtl">
+                <p className={`text-right text-2xl md:text-3xl leading-snug font-quran ${isSelected ? 'text-white' : 'text-gray-200'}`} dir="rtl">
                   {ayah.text} <span className="text-amber-400">({ayah.numberInSurah})</span>
                 </p>
 
