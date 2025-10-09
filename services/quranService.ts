@@ -86,12 +86,24 @@ export const fetchSurah = async (surahNumber: number, reciterId: string, transla
             translationText: translationData?.ayahs[index]?.text || 'Translation not available.',
         }));
 
+        const basmalah = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
+        let displayBasmalah = false;
+        
+        if (reciterData.number !== 1 && reciterData.number !== 9) {
+            const firstAyah = mergedAyahs[0];
+            if (firstAyah && firstAyah.text.startsWith(basmalah)) {
+                firstAyah.text = firstAyah.text.substring(basmalah.length).trim();
+                displayBasmalah = true;
+            }
+        }
+
         return {
             number: reciterData.number,
             name: reciterData.name,
             englishName: reciterData.englishName,
             revelationType: reciterData.revelationType,
             ayahs: mergedAyahs,
+            displayBasmalah,
         };
 
     } catch (error) {

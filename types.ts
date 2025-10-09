@@ -21,6 +21,7 @@ export interface SurahData {
   englishName: string;
   revelationType: string;
   ayahs: Ayah[];
+  displayBasmalah?: boolean;
 }
 
 export interface Reciter {

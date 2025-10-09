@@ -10,10 +10,13 @@ interface AyahDisplayProps {
   selectedAyah: Ayah | null;
   ayahRefs: React.MutableRefObject<Record<number, HTMLLIElement | null>>;
   onShowTafsir: (ayah: Ayah) => void;
+  onGoToNextSurah: () => void;
+  nextSurahName: string | null;
+  isLastSurah: boolean;
 }
 
 const AyahSkeletonLoader: React.FC = () => (
-    <div className="space-y-4 animate-pulse">
+    <div className="space-y-4 animate-pulse max-w-5xl mx-auto">
         {[...Array(5)].map((_, i) => (
             <div key={i} className="bg-slate-800/80 rounded-lg h-32 w-full">
                 <div className="p-6">
@@ -26,9 +29,9 @@ const AyahSkeletonLoader: React.FC = () => (
 );
 
 
-const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick, memorizationState, selectedAyah, ayahRefs, onShowTafsir }) => {
+const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick, memorizationState, selectedAyah, ayahRefs, onShowTafsir, onGoToNextSurah, nextSurahName, isLastSurah }) => {
   if (isLoading) {
-    return <div className="text-center px-4 pb-24"><AyahSkeletonLoader/></div>;
+    return <div className="text-center px-4"><AyahSkeletonLoader/></div>;
   }
   
   if (!surah) {
@@ -39,13 +42,21 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
   let lastPage = 0;
 
   return (
-    <div className="text-center px-4 pb-24"> {/* Added padding-bottom for player */}
+    <div className="text-center px-4"> {/* Removed padding-bottom */}
       <h2 className="text-3xl font-bold mb-2 text-amber-400 animate-fadeInUp opacity-0" style={{animationDelay: '100ms'}}>
         {surah.name} ({surah.englishName})
       </h2>
       <p className="mb-6 text-lg text-gray-400 animate-fadeInUp opacity-0" style={{animationDelay: '200ms'}}>{surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية'}</p>
       
-      <ul className="space-y-4">
+      {surah.displayBasmalah && (
+          <div className="my-8 animate-fadeInUp opacity-0" style={{animationDelay: '300ms'}}>
+            <p className="text-3xl font-quran text-white">
+              بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+            </p>
+          </div>
+      )}
+
+      <ul className="space-y-4 max-w-5xl mx-auto">
         {surah.ayahs.map((ayah, index) => {
           const isSelected = selectedAyah?.number === ayah.number;
           const count = memorizationState[ayah.number] || 0;
@@ -125,6 +136,17 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
           );
         })}
       </ul>
+      
+      {!isLastSurah && nextSurahName && (
+        <div className="mt-12 text-center animate-fadeInUp opacity-0" style={{animationDelay: '800ms'}}>
+            <button
+                onClick={onGoToNextSurah}
+                className="px-8 py-4 bg-amber-500 text-slate-900 font-bold text-lg rounded-lg shadow-lg hover:bg-amber-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-amber-400"
+            >
+                الانتقال إلى سورة {nextSurahName} →
+            </button>
+        </div>
+      )}
     </div>
   );
 };
