@@ -197,11 +197,10 @@ export function App() {
     const endJuz = lastAyah.juz;
     const juzString = startJuz === endJuz ? `الجزء ${startJuz}` : `الجزء ${startJuz} - ${endJuz}`;
 
-    const startPage = firstAyah.page;
-    const endPage = lastAyah.page;
-    const pageString = startPage === endPage ? `صفحة ${startPage}` : `صفحة ${startPage} - ${endPage}`;
+    const ayahsCount = surahData.ayahs.length;
+    const ayahsString = `${ayahsCount} آيات`;
     
-    return `${surahData.name} | ${juzString} | ${pageString}`;
+    return `${surahData.name} | ${juzString} | ${ayahsString}`;
   }, [surahData]);
 
   return (
