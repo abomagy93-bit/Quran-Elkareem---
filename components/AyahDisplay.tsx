@@ -43,14 +43,14 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
 
   return (
     <div className="text-center px-4"> {/* Removed padding-bottom */}
-      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-amber-400 animate-fadeInUp opacity-0" style={{animationDelay: '100ms'}}>
+      <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-amber-400 animate-fadeInUp opacity-0" style={{animationDelay: '100ms'}}>
         {surah.name} ({surah.englishName})
       </h2>
       <p className="mb-6 text-base sm:text-lg text-gray-400 animate-fadeInUp opacity-0" style={{animationDelay: '200ms'}}>{surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية'}</p>
       
       {surah.displayBasmalah && (
           <div className="my-8 animate-fadeInUp opacity-0" style={{animationDelay: '300ms'}}>
-            <p className="text-2xl sm:text-3xl md:text-4xl font-quran text-white">
+            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran text-white">
               بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
             </p>
           </div>
@@ -81,7 +81,7 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
             <React.Fragment key={ayah.number}>
               {juzChanged && (
                 <div className="text-center my-6 pt-4 animate-fadeInUp opacity-0" style={{animationDelay: `${animationDelay}ms`}}>
-                   <h3 className="inline-block px-4 py-2 text-2xl font-bold text-amber-400 bg-slate-700/70 rounded-lg shadow">
+                   <h3 className="inline-block px-4 py-2 text-2xl lg:text-3xl font-bold text-amber-400 bg-slate-700/70 rounded-lg shadow">
                         الجزء {ayah.juz}
                    </h3>
                 </div>
@@ -106,12 +106,12 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
                   </span>
                 )}
                 
-                <p className={`text-right text-2xl sm:text-3xl md:text-4xl leading-loose md:leading-relaxed font-quran ${isSelected ? 'text-white' : 'text-gray-200'}`} dir="rtl">
+                <p className={`text-right text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-loose md:leading-relaxed font-quran ${isSelected ? 'text-white' : 'text-gray-200'}`} dir="rtl">
                   {ayah.text} <span className="text-amber-400">({ayah.numberInSurah})</span>
                 </p>
 
                 {ayah.translationText && (
-                    <p className={`text-left text-base sm:text-lg mt-4 text-gray-400`} dir="ltr">
+                    <p className={`text-left text-base sm:text-lg lg:text-xl mt-4 text-gray-400`} dir="ltr">
                         {ayah.translationText}
                     </p>
                 )}

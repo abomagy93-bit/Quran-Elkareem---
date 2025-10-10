@@ -57,7 +57,7 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
         </header>
         
         <div className="p-8 border-b border-slate-700 flex-shrink-0">
-          <p className="text-3xl md:text-4xl leading-loose md:leading-relaxed font-quran text-gray-200 text-right" dir="rtl">
+          <p className="text-3xl md:text-4xl lg:text-5xl leading-loose md:leading-relaxed font-quran text-gray-200 text-right" dir="rtl">
             {ayah?.text}
           </p>
         </div>
@@ -75,7 +75,7 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
               {tafsirContent.arabic && (
                 <div className="mb-8">
                   <h3 className="text-xl font-bold text-amber-300 mb-4 text-right">التفسير الميسر</h3>
-                  <p className="text-xl leading-loose text-gray-300 text-right font-amiri whitespace-pre-wrap" dir="rtl">
+                  <p className="text-xl lg:text-2xl leading-loose text-gray-300 text-right font-amiri whitespace-pre-wrap" dir="rtl">
                     {tafsirContent.arabic}
                   </p>
                 </div>
@@ -88,7 +88,7 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
                     {tafsirContent.translation.name}
                   </h3>
                   <p 
-                    className={`text-lg leading-relaxed text-gray-300 whitespace-pre-wrap ${isRtl(tafsirContent.translation.lang) ? 'text-right' : 'text-left'}`} 
+                    className={`text-lg lg:text-xl leading-relaxed text-gray-300 whitespace-pre-wrap ${isRtl(tafsirContent.translation.lang) ? 'text-right' : 'text-left'}`} 
                     dir={isRtl(tafsirContent.translation.lang) ? 'rtl' : 'ltr'}>
                     {tafsirContent.translation.text}
                   </p>

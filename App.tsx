@@ -209,7 +209,7 @@ export function App() {
         <header className="bg-slate-800/80 backdrop-blur-sm shadow-lg border-b border-slate-700/50">
           <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 md:px-6 py-2">
             <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-400 leading-tight">قرآن الكريم</h1>
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-amber-400 leading-tight">قرآن الكريم</h1>
               <p className="text-sm sm:text-base text-gray-200 mt-1 leading-tight">المعين لحفظ كلام رب العالمين</p>
               {surahInfoString && <p className="text-[10px] sm:text-xs text-gray-400 mt-1 truncate">{surahInfoString}</p>}
             </div>
