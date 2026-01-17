@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { Ayah } from '../types';
 import AyahCounter from './AyahCounter';
+import { useActionButtonState } from '../hooks/useActionButtonState';
 
 interface PlayerControlsProps {
   ayah: Ayah | null;
@@ -14,6 +16,7 @@ interface PlayerControlsProps {
   isFirstAyah: boolean;
   isVisible: boolean;
   onClose: () => void;
+  t: any;
 }
 
 const PlayerControls: React.FC<PlayerControlsProps> = ({
@@ -28,25 +31,9 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
   isFirstAyah,
   isVisible,
   onClose,
+  t
 }) => {
-  const { actionButtonLabel, ariaLabel, actionButtonColor, isSelfReadingPhase } = React.useMemo(() => {
-    const isSelfReadingPhase = count >= 7;
-
-    let actionButtonLabel = 'ابدأ';
-    let ariaLabel = 'ابدأ الحفظ';
-    let actionButtonColor = 'bg-teal-600 hover:bg-teal-700';
-
-    if (isSelfReadingPhase) {
-      actionButtonLabel = 'إعادة الاستماع';
-      ariaLabel = 'إعادة الاستماع للآية';
-      actionButtonColor = 'bg-sky-600 hover:bg-sky-700';
-    } else if (count > 0) {
-      actionButtonLabel = 'مرة كمان';
-      ariaLabel = 'الاستماع مرة أخرى';
-    }
-
-    return { actionButtonLabel, ariaLabel, actionButtonColor, isSelfReadingPhase };
-  }, [count]);
+  const { actionButtonLabel, ariaLabel, actionButtonColor, isSelfReadingPhase } = useActionButtonState(count, t);
 
   const isMemorizationStarted = count > 0;
 
@@ -65,14 +52,14 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
               <button
                 onClick={onActionButtonClick}
                 className="px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-200 text-md active:scale-95 bg-teal-600 hover:bg-teal-700"
-                aria-label="ابدأ الحفظ لهذه الآية"
+                aria-label={t.startMemorizingAyah}
               >
-                ابدأ الحفظ
+                {t.startMemorizing}
               </button>
               <button
                 onClick={onClose}
                 className="p-2 text-gray-400 hover:text-white transition-colors"
-                aria-label="إغلاق"
+                aria-label={t.close}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -99,9 +86,14 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
               <button
                 onClick={onPrevious}
                 disabled={isAudioPlaying || isFirstAyah}
-                className="p-3 bg-gray-600 text-white font-semibold rounded-full shadow-md hover:bg-gray-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
-                aria-label="الانتقال للآية السابقة"
+                className="p-3 bg-gray-600 text-white font-semibold rounded-full shadow-md hover:bg-gray-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transform ltr:rotate-180"
+                aria-label={t.prevAyah}
               >
+                 {/* Arrow icon needs to point left for previous, right for next in LTR. 
+                    In RTL, Prevous is Right arrow? No, usually 'Previous' in audio is Back (Left) and Next is Forward (Right).
+                    However, for Quran reading order (RTL), 'Next' is logically 'Left' in the book, but linear audio players usually use standard icons.
+                    Let's just flip the icon container based on dir if needed, or rely on standard player conventions (Right = Next, Left = Back)
+                 */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
@@ -113,17 +105,17 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
                         onClick={onActionButtonClick}
                         disabled={isAudioPlaying}
                         className="px-4 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm active:scale-95 bg-sky-600 hover:bg-sky-700"
-                        aria-label="إعادة الاستماع للآية"
+                        aria-label={t.reListenAyah}
                       >
-                        إعادة الاستماع
+                        {t.reListen}
                       </button>
                       <button
                         onClick={onSelfReadClick}
                         disabled={isAudioPlaying}
                         className="px-4 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm active:scale-95 bg-amber-600 hover:bg-amber-700"
-                        aria-label="زيادة عداد القراءة"
+                        aria-label={t.increaseReadCount}
                       >
-                        قراءة
+                        {t.read}
                       </button>
                   </>
               ) : (
@@ -140,8 +132,8 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
               <button
                 onClick={onNext}
                 disabled={isAudioPlaying || isLastAyah}
-                className="p-3 bg-gray-600 text-white font-semibold rounded-full shadow-md hover:bg-gray-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
-                aria-label="الانتقال للآية التالية"
+                className="p-3 bg-gray-600 text-white font-semibold rounded-full shadow-md hover:bg-gray-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transform ltr:rotate-180"
+                aria-label={t.nextAyah}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />

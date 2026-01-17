@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { PrayerTimesData } from '../types';
 import { countries } from '../data/locations';
@@ -10,6 +11,7 @@ interface PrayerTimesProps {
     error: string | null;
     currentLocation: { city: string, country: string };
     onLocationChange: (location: { city: string, country: string }) => void;
+    t: any;
 }
 
 const PRAYER_NAMES: { [key: string]: string } = {
@@ -21,7 +23,7 @@ const PRAYER_NAMES: { [key: string]: string } = {
     Isha: 'Isha',
 };
 
-const PrayerTimes: React.FC<PrayerTimesProps> = ({ isOpen, onClose, data, isLoading, error, currentLocation, onLocationChange }) => {
+const PrayerTimes: React.FC<PrayerTimesProps> = ({ isOpen, onClose, data, isLoading, error, currentLocation, onLocationChange, t }) => {
     const [showModal, setShowModal] = useState(false);
     const [cities, setCities] = useState<string[]>([]);
 
@@ -75,12 +77,12 @@ const PrayerTimes: React.FC<PrayerTimesProps> = ({ isOpen, onClose, data, isLoad
             >
                 <header className="p-6 border-b border-slate-700 flex justify-between items-center flex-shrink-0">
                     <h2 id="prayer-times-title" className="text-2xl font-bold text-amber-400">
-                        Prayer Times
+                        {t.prayerTimesTitle}
                     </h2>
                     <button
                         onClick={onClose}
                         className="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold hover:bg-red-600 transition-colors"
-                        aria-label="إغلاق"
+                        aria-label={t.close}
                     >
                         &times;
                     </button>
@@ -93,7 +95,7 @@ const PrayerTimes: React.FC<PrayerTimesProps> = ({ isOpen, onClose, data, isLoad
                             onChange={handleCountryChange}
                             disabled={isLoading}
                             className="flex-1 p-3 text-md bg-slate-700 border border-slate-600 rounded-md focus:ring-amber-500 focus:border-amber-500 text-white disabled:opacity-50"
-                            aria-label="Select Country for prayer times"
+                            aria-label={t.selectCountry}
                         >
                             {countries.map(country => (
                                 <option key={country.name} value={country.name}>{country.name}</option>
@@ -104,7 +106,7 @@ const PrayerTimes: React.FC<PrayerTimesProps> = ({ isOpen, onClose, data, isLoad
                             onChange={handleCityChange}
                             disabled={isLoading || cities.length === 0}
                             className="flex-1 p-3 text-md bg-slate-700 border border-slate-600 rounded-md focus:ring-amber-500 focus:border-amber-500 text-white disabled:opacity-50"
-                            aria-label="Select City for prayer times"
+                            aria-label={t.selectCity}
                         >
                             {cities.map(city => (
                                 <option key={city} value={city}>{city}</option>

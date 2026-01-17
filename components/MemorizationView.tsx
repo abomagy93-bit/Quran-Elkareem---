@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Ayah } from '../types';
 import { MEMORIZATION_COLORS, SELF_READING_COLORS } from '../constants';
@@ -13,10 +14,11 @@ interface MemorizationViewProps {
   onActionButtonClick: () => void;
   onNext: () => void;
   isLastAyah: boolean;
+  t: any;
 }
 
-const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClose, onMemorizeClick, isAudioPlaying, onActionButtonClick, onNext, isLastAyah }) => {
-  const { actionButtonLabel, ariaLabel, actionButtonColor, isSelfReadingPhase } = useActionButtonState(count);
+const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClose, onMemorizeClick, isAudioPlaying, onActionButtonClick, onNext, isLastAyah, t }) => {
+  const { actionButtonLabel, ariaLabel, actionButtonColor, isSelfReadingPhase } = useActionButtonState(count, t);
 
   let colorClass: string;
   if (count <= 7) {
@@ -39,16 +41,16 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
             onClose();
           }}
           className="absolute top-4 right-4 bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl font-bold hover:bg-red-600 transition-colors z-10 disabled:opacity-50 disabled:cursor-not-allowed"
-          aria-label="إغلاق"
+          aria-label={t.close}
           disabled={isAudioPlaying}
         >
           &times;
         </button>
 
         <div className="absolute top-4 left-4 text-sm text-gray-300 font-semibold bg-white/10 px-3 py-1 rounded-full">
-            <span>الجزء {ayah.juz}</span>
+            <span>{t.juz} {ayah.juz}</span>
             <span className="mx-2">|</span>
-            <span>الصفحة {ayah.page}</span>
+            <span>{t.page} {ayah.page}</span>
         </div>
 
         <div className="flex-grow w-full flex flex-col items-center justify-center overflow-y-auto">
@@ -90,14 +92,14 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
                     }}
                     disabled={isAudioPlaying || isLastAyah}
                     className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-lg"
-                    aria-label="الانتقال للآية التالية"
+                    aria-label={t.nextAyah}
                 >
-                    الآية التالية
+                    {t.nextAyah}
                 </button>
             </div>
              {isSelfReadingPhase && (
                 <p className="text-center text-sm text-gray-400 mt-2">
-                    اقرأ بنفسك كما تشاء، يمكنك إعادة الاستماع أو الانتقال للآية التالية. اضغط على الشاشة لعداد القراءة.
+                    {t.selfReadingNote}
                 </p>
             )}
         </div>

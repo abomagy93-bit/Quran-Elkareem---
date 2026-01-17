@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { Ayah } from './types';
 import { RECITERS, TRANSLATIONS, RADIO_STREAM_URL } from './constants';
@@ -5,6 +6,7 @@ import { useQuran } from './hooks/useQuran';
 import { useAudioController } from './hooks/useAudioController';
 import { useTafsirModal } from './hooks/useTafsirModal';
 import { usePrayerTimes } from './hooks/usePrayerTimes';
+import { translations } from './translations';
 
 import SurahSelector from './components/SurahSelector';
 import ReciterSelector from './components/ReciterSelector';
@@ -33,6 +35,13 @@ HeaderButton.displayName = 'HeaderButton';
 
 
 export function App() {
+  const [language, setLanguage] = useState<'ar' | 'en'>(() => {
+      const saved = localStorage.getItem('app_language');
+      return (saved === 'en' || saved === 'ar') ? saved : 'ar';
+  });
+
+  const t = translations[language];
+
   const [selectedSurah, setSelectedSurah] = useState<number>(1);
   const [selectedReciter, setSelectedReciter] = useState<string>(RECITERS[0]?.identifier || '');
   const [selectedTranslation, setSelectedTranslation] = useState<string>(TRANSLATIONS[0]?.identifier || '');
@@ -46,7 +55,7 @@ export function App() {
 
   const { surahs, surahData, isLoading, error, loadSurahData } = useQuran();
   const { isAyahPlaying, playAyah, isRadioPlaying, toggleRadio } = useAudioController(handlePlaybackEnd);
-  const { isOpen: isTafsirOpen, tafsirAyah, tafsirContent, isTafsirLoading, showTafsir, closeTafsir } = useTafsirModal();
+  const { isOpen: isTafsirOpen, tafsirAyah, tafsirContent, isTafsirLoading, showTafsir, closeTafsir } = useTafsirModal(t);
   const { location, setLocation, prayerTimes, isLoading: isPrayerTimesLoading, error: prayerTimesError } = usePrayerTimes();
   
   const [isSelectorPanelOpen, setIsSelectorPanelOpen] = useState(true);
@@ -57,6 +66,19 @@ export function App() {
   const ayahRefs = useRef<Record<number, HTMLLIElement | null>>({});
   const settingsPanelRef = useRef<HTMLDivElement>(null);
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+      localStorage.setItem('app_language', language);
+      
+      // Update font based on language
+      if (language === 'en') {
+          document.body.style.fontFamily = 'ui-sans-serif, system-ui, sans-serif';
+      } else {
+          document.body.style.fontFamily = "'Amiri', serif";
+      }
+  }, [language]);
   
   // This effect will create space for the player controls at the bottom of the page
   // so it doesn't overlap the footer.
@@ -195,13 +217,13 @@ export function App() {
 
     const startJuz = firstAyah.juz;
     const endJuz = lastAyah.juz;
-    const juzString = startJuz === endJuz ? `الجزء ${startJuz}` : `الجزء ${startJuz} - ${endJuz}`;
+    const juzString = startJuz === endJuz ? `${t.juz} ${startJuz}` : `${t.juz} ${startJuz} - ${endJuz}`;
 
     const ayahsCount = surahData.ayahs.length;
-    const ayahsString = `${ayahsCount} آيات`;
+    const ayahsString = `${ayahsCount} ${t.ayahs}`;
     
     return `${surahData.name} | ${juzString} | ${ayahsString}`;
-  }, [surahData]);
+  }, [surahData, t]);
 
   return (
     <div className="text-white min-h-screen flex flex-col">
@@ -209,15 +231,23 @@ export function App() {
         <header className="bg-slate-800/80 backdrop-blur-sm shadow-lg border-b border-slate-700/50">
           <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 md:px-6 py-2">
             <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-amber-400 leading-tight">قرآن الكريم</h1>
-              <p className="text-sm sm:text-base text-gray-200 mt-1 leading-tight">المعين لحفظ كلام رب العالمين</p>
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-amber-400 leading-tight">{t.appTitle}</h1>
+              <p className="text-sm sm:text-base text-gray-200 mt-1 leading-tight">{t.appSubtitle}</p>
               {surahInfoString && <p className="text-[10px] sm:text-xs text-gray-400 mt-1 truncate">{surahInfoString}</p>}
             </div>
             <div className="flex items-center gap-0">
                <HeaderButton
+                  onClick={() => setLanguage(l => l === 'ar' ? 'en' : 'ar')}
+                  label={language === 'ar' ? 'English' : 'عربي'}
+                  title="Switch Language"
+                  className="hover:bg-slate-700 text-white font-bold"
+               >
+                  {language === 'ar' ? 'EN' : 'ع'}
+               </HeaderButton>
+               <HeaderButton
                   onClick={() => setIsSelectorPanelOpen(p => !p)}
-                  label="الإعدادات"
-                  title="الإعدادات"
+                  label={t.settings}
+                  title={t.settings}
                   className="hover:bg-slate-700"
                   ref={settingsButtonRef}
                >
@@ -228,8 +258,8 @@ export function App() {
                </HeaderButton>
                <HeaderButton
                   onClick={() => setIsPrayerTimesOpen(true)}
-                  label="المواقيت"
-                  title="أوقات الصلاة"
+                  label={t.prayerTimes}
+                  title={t.prayerTimesTitle}
                   className="hover:bg-slate-700 text-white"
                >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -238,8 +268,8 @@ export function App() {
                </HeaderButton>
                <HeaderButton
                  onClick={() => toggleRadio(RADIO_STREAM_URL)}
-                 label="الإذاعة"
-                 title="إذاعة القرآن الكريم"
+                 label={t.radio}
+                 title={t.radioTitle}
                  className={`hover:bg-slate-700 ${isRadioPlaying ? 'text-amber-400' : 'text-white'}`}
                >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -265,19 +295,19 @@ export function App() {
                 onClick={() => setIsSelectorPanelOpen(false)}
                 className="mt-4 flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:text-amber-400 transition-colors"
                 role="button"
-                aria-label="إغلاق لوحة الإعدادات"
+                aria-label={t.closeSettings}
               >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
                   </svg>
-                  <span className="text-xs font-semibold">اضغط للإغلاق</span>
+                  <span className="text-xs font-semibold">{t.closeSettings}</span>
               </div>
                <div className="mt-6 text-center text-sm">
                   <p className="font-semibold text-lg" style={{ color: '#FFD700' }}>
-                      تم بواسطة كريم مجدي آل عشماوي
+                      {t.developedBy}
                   </p>
                   <p className="font-semibold text-lg" style={{ color: '#FFD700' }}>
-                      صدقة جارية لأمي رحمها الله.
+                      {t.charity}
                   </p>
               </div>
             </div>
@@ -297,16 +327,17 @@ export function App() {
           onGoToNextSurah={handleGoToNextSurah}
           nextSurahName={nextSurahName}
           isLastSurah={isLastSurah}
+          t={t}
         />
       </main>
 
       <footer className="bg-slate-900/90 border-t border-slate-700/50 py-4 px-6 text-center text-sm">
         <div className="container mx-auto">
           <p className="font-semibold text-lg" style={{ color: '#FFD700' }}>
-            تم بواسطة كريم مجدي آل عشماوي
+            {t.developedBy}
           </p>
           <p className="font-semibold text-lg" style={{ color: '#FFD700' }}>
-            صدقة جارية لأمي رحمها الله.
+            {t.charity}
           </p>
         </div>
       </footer>
@@ -323,6 +354,7 @@ export function App() {
         isFirstAyah={isFirstAyah}
         isVisible={!!selectedAyah}
         onClose={handleClosePlayer}
+        t={t}
       />
 
       <TafsirModal
@@ -332,6 +364,7 @@ export function App() {
         tafsirContent={tafsirContent}
         isLoading={isTafsirLoading}
         surahName={surahData?.name || ''}
+        t={t}
       />
       
       <PrayerTimes
@@ -342,6 +375,7 @@ export function App() {
         error={prayerTimesError}
         currentLocation={location}
         onLocationChange={setLocation}
+        t={t}
       />
     </div>
   );

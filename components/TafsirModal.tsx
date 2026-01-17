@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Ayah, Tafsir } from '../types';
 
@@ -8,11 +9,12 @@ interface TafsirModalProps {
   tafsirContent: Tafsir | null;
   isLoading: boolean;
   surahName: string;
+  t: any;
 }
 
 const RTL_LANGS = ['ar', 'ur', 'he', 'fa'];
 
-const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsirContent, isLoading, surahName }) => {
+const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsirContent, isLoading, surahName, t }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -45,12 +47,12 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
       >
         <header className="p-6 border-b border-slate-700 flex justify-between items-center flex-shrink-0">
           <h2 id="tafsir-title" className="text-2xl font-bold text-amber-400">
-            تفسير الآية {ayah?.numberInSurah} من سورة {surahName}
+            {t.tafsirTitle} {ayah?.numberInSurah} {t.surah === 'سورة' ? 'من' : 'from'} {t.surah} {surahName}
           </h2>
           <button 
             onClick={onClose}
             className="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold hover:bg-red-600 transition-colors"
-            aria-label="إغلاق"
+            aria-label={t.close}
           >
             &times;
           </button>
@@ -74,7 +76,7 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
             <>
               {tafsirContent.arabic && (
                 <div className="mb-8">
-                  <h3 className="text-xl font-bold text-amber-300 mb-4 text-right">التفسير الميسر</h3>
+                  <h3 className="text-xl font-bold text-amber-300 mb-4 text-right">{t.tafsirMoyassar}</h3>
                   <p className="text-xl lg:text-2xl leading-loose text-gray-300 text-right font-amiri whitespace-pre-wrap" dir="rtl">
                     {tafsirContent.arabic}
                   </p>
@@ -96,13 +98,13 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
               )}
               {!tafsirContent.arabic && !tafsirContent.translation?.text && (
                  <p className="text-xl text-center text-red-400">
-                    عذراً، لم نتمكن من تحميل التفسير.
+                    {t.tafsirErrorDetails}
                  </p>
               )}
             </>
           ) : (
             <p className="text-xl text-center text-red-400">
-              عذراً، لم نتمكن من تحميل التفسير.
+              {t.tafsirErrorDetails}
             </p>
           )}
         </div>

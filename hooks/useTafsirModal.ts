@@ -1,8 +1,9 @@
+
 import { useState, useCallback } from 'react';
 import { Ayah, Tafsir } from '../types';
 import { fetchTafsir } from '../services/quranService';
 
-export const useTafsirModal = () => {
+export const useTafsirModal = (t: any) => {
     const [tafsirAyah, setTafsirAyah] = useState<Ayah | null>(null);
     const [tafsirContent, setTafsirContent] = useState<Tafsir | null>(null);
     const [isTafsirLoading, setIsTafsirLoading] = useState(false);
@@ -20,9 +21,9 @@ export const useTafsirModal = () => {
         } catch (error) {
             console.error("Failed to fetch Tafsir:", error);
             setTafsirContent({
-                arabic: "عذراً، لم نتمكن من تحميل التفسير. يرجى المحاولة مرة أخرى.",
+                arabic: t?.tafsirErrorDetails || "عذراً، لم نتمكن من تحميل التفسير. يرجى المحاولة مرة أخرى.",
                 translation: {
-                    text: "Sorry, could not load the Tafsir. Please try again.",
+                    text: t?.tafsirErrorDetails || "Sorry, could not load the Tafsir. Please try again.",
                     name: "Error",
                     lang: 'en'
                 }
@@ -30,7 +31,7 @@ export const useTafsirModal = () => {
         } finally {
             setIsTafsirLoading(false);
         }
-    }, []);
+    }, [t]);
 
     const closeTafsir = useCallback(() => {
         setTafsirAyah(null);
