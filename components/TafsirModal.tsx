@@ -58,7 +58,7 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
         </header>
         
         <div className="p-6 sm:p-10 border-b border-slate-700/50 flex-shrink-0 bg-slate-900/30">
-          <p className="text-3xl md:text-4xl lg:text-5xl font-quran text-gray-100 text-right leading-[2.5] md:leading-[3]" dir="rtl">
+          <p className="text-3xl md:text-4xl lg:text-5xl font-quran text-gray-100 text-right leading-[2.2] md:leading-[2.4]" dir="rtl">
             {ayah?.text}
           </p>
         </div>
@@ -76,7 +76,7 @@ const TafsirModal: React.FC<TafsirModalProps> = ({ isOpen, onClose, ayah, tafsir
               {tafsirContent.arabic && (
                 <div>
                   <h3 className="text-xl font-bold text-amber-300 mb-4 text-right border-r-4 border-amber-500 pr-4">{t.tafsirMoyassar}</h3>
-                  <p className="text-xl lg:text-2xl leading-[2.2] text-gray-300 text-right font-amiri whitespace-pre-wrap" dir="rtl">
+                  <p className="text-xl lg:text-2xl leading-[2.0] text-gray-300 text-right font-amiri whitespace-pre-wrap" dir="rtl">
                     {tafsirContent.arabic}
                   </p>
                 </div>

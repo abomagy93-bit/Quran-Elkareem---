@@ -53,11 +53,11 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
         </div>
 
         <div className="flex-grow w-full flex flex-col items-center justify-center overflow-y-auto px-4">
-            <p className="text-4xl md:text-5xl lg:text-7xl font-quran text-gray-100 text-center leading-[2.5] md:leading-[3] lg:leading-[3.2]" dir="rtl">
-                {ayah.text} <span className="text-amber-400 px-4">({ayah.numberInSurah})</span>
+            <p className="text-4xl md:text-5xl lg:text-7xl font-quran text-gray-100 text-center leading-[2.2] md:leading-[2.4] lg:leading-[2.5]" dir="rtl">
+                {ayah.text} <span className="text-amber-400 px-3">({ayah.numberInSurah})</span>
             </p>
             {ayah.translationText && (
-                <p className="text-xl md:text-2xl mt-10 text-gray-300 text-center max-w-4xl leading-relaxed" dir="ltr">
+                <p className="text-xl md:text-2xl mt-8 text-gray-300 text-center max-w-4xl leading-relaxed" dir="ltr">
                     {ayah.translationText}
                 </p>
             )}
@@ -79,7 +79,7 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
                         onActionButtonClick();
                     }}
                     disabled={isAudioPlaying}
-                    className={`px-8 py-4 text-white font-bold rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xl active:scale-95 ${actionButtonColor}`}
+                    className={`px-8 py-3.5 text-white font-bold rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xl active:scale-95 ${actionButtonColor}`}
                     aria-label={ariaLabel}
                 >
                     {actionButtonLabel}
@@ -90,7 +90,7 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
                         onNext();
                     }}
                     disabled={isAudioPlaying || isLastAyah}
-                    className="px-6 py-4 bg-slate-700 text-white font-bold rounded-xl shadow-lg hover:bg-slate-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xl active:scale-95"
+                    className="px-6 py-3.5 bg-slate-700 text-white font-bold rounded-xl shadow-lg hover:bg-slate-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xl"
                     aria-label={t.nextAyah}
                 >
                     {t.nextAyah}
