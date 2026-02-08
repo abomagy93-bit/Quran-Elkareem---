@@ -24,20 +24,19 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
   if (count <= 7) {
     colorClass = MEMORIZATION_COLORS[count] || MEMORIZATION_COLORS[0];
   } else {
-    // Cycle through self-reading colors for counts > 7
     const colorIndex = (count - 8) % SELF_READING_COLORS.length;
     colorClass = SELF_READING_COLORS[colorIndex];
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
       <div 
         className={`relative w-full max-w-6xl h-[85vh] p-8 md:p-12 rounded-2xl shadow-2xl transition-colors duration-300 flex flex-col justify-between items-center ${colorClass} bg-slate-800 ${isAudioPlaying ? 'cursor-wait' : 'cursor-pointer'}`}
         onClick={() => onMemorizeClick(ayah)}
       >
         <button 
           onClick={(e) => {
-            e.stopPropagation(); // Prevent triggering memorization click
+            e.stopPropagation();
             onClose();
           }}
           className="absolute top-4 right-4 bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl font-bold hover:bg-red-600 transition-colors z-10 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -47,24 +46,24 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
           &times;
         </button>
 
-        <div className="absolute top-4 left-4 text-sm text-gray-300 font-semibold bg-white/10 px-3 py-1 rounded-full">
+        <div className="absolute top-4 left-4 text-sm text-gray-300 font-semibold bg-white/10 px-4 py-2 rounded-full">
             <span>{t.juz} {ayah.juz}</span>
             <span className="mx-2">|</span>
             <span>{t.page} {ayah.page}</span>
         </div>
 
-        <div className="flex-grow w-full flex flex-col items-center justify-center overflow-y-auto">
-            <p className="text-4xl md:text-6xl lg:text-7xl leading-snug font-arabic text-gray-200 text-center" dir="rtl">
-                {ayah.text} <span className="text-amber-400">({ayah.numberInSurah})</span>
+        <div className="flex-grow w-full flex flex-col items-center justify-center overflow-y-auto px-4">
+            <p className="text-4xl md:text-5xl lg:text-7xl font-quran text-gray-100 text-center leading-[2.5] md:leading-[3] lg:leading-[3.2]" dir="rtl">
+                {ayah.text} <span className="text-amber-400 px-4">({ayah.numberInSurah})</span>
             </p>
             {ayah.translationText && (
-                <p className="text-xl md:text-2xl mt-8 text-gray-300 text-center max-w-4xl" dir="ltr">
+                <p className="text-xl md:text-2xl mt-10 text-gray-300 text-center max-w-4xl leading-relaxed" dir="ltr">
                     {ayah.translationText}
                 </p>
             )}
         </div>
 
-        <div className="w-full flex flex-col items-center gap-y-4 pt-4">
+        <div className="w-full flex flex-col items-center gap-y-6 pt-6 border-t border-white/5">
             <div className="flex flex-col items-center space-y-2">
                 <AyahCounter
                     count={count}
@@ -80,7 +79,7 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
                         onActionButtonClick();
                     }}
                     disabled={isAudioPlaying}
-                    className={`px-8 py-3 text-white font-semibold rounded-lg shadow-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-lg ${actionButtonColor}`}
+                    className={`px-8 py-4 text-white font-bold rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xl active:scale-95 ${actionButtonColor}`}
                     aria-label={ariaLabel}
                 >
                     {actionButtonLabel}
@@ -91,14 +90,14 @@ const MemorizationView: React.FC<MemorizationViewProps> = ({ ayah, count, onClos
                         onNext();
                     }}
                     disabled={isAudioPlaying || isLastAyah}
-                    className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+                    className="px-6 py-4 bg-slate-700 text-white font-bold rounded-xl shadow-lg hover:bg-slate-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xl active:scale-95"
                     aria-label={t.nextAyah}
                 >
                     {t.nextAyah}
                 </button>
             </div>
              {isSelfReadingPhase && (
-                <p className="text-center text-sm text-gray-400 mt-2">
+                <p className="text-center text-sm text-gray-400 mt-2 max-w-lg">
                     {t.selfReadingNote}
                 </p>
             )}

@@ -44,28 +44,28 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
   let lastPage = 0;
 
   return (
-    <div className="text-center px-4"> {/* Removed padding-bottom */}
+    <div className="text-center px-4">
       <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-amber-400 animate-fadeInUp opacity-0" style={{animationDelay: '100ms'}}>
         {surah.name} ({surah.englishName})
       </h2>
       <p className="mb-6 text-base sm:text-lg text-gray-400 animate-fadeInUp opacity-0" style={{animationDelay: '200ms'}}>{surah.revelationType === 'Meccan' ? t.meccan : t.medinan}</p>
       
       {surah.displayBasmalah && (
-          <div className="my-8 animate-fadeInUp opacity-0" style={{animationDelay: '300ms'}}>
-            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran text-white">
+          <div className="my-10 animate-fadeInUp opacity-0" style={{animationDelay: '300ms'}}>
+            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran text-white leading-[2.5]">
               بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
             </p>
           </div>
       )}
 
-      <ul className="space-y-4 max-w-5xl mx-auto">
+      <ul className="space-y-6 max-w-5xl mx-auto">
         {surah.ayahs.map((ayah, index) => {
           const isSelected = selectedAyah?.number === ayah.number;
           const count = memorizationState[ayah.number] || 0;
           
           let colorClass = '';
           if (isSelected) {
-            colorClass = 'bg-slate-700/50 scale-105 ring-2 ring-amber-400';
+            colorClass = 'bg-slate-700/50 scale-[1.02] ring-2 ring-amber-400';
           } else {
             const displayCount = Math.min(count, 7);
             colorClass = MEMORIZATION_COLORS[displayCount] || MEMORIZATION_COLORS[0];
@@ -77,19 +77,19 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
           lastJuz = ayah.juz;
           lastPage = ayah.page;
 
-          const animationDelay = Math.min(index * 20, 600); // Faster stagger, max 0.6s delay
+          const animationDelay = Math.min(index * 20, 600);
 
           return (
             <React.Fragment key={ayah.number}>
               {juzChanged && (
-                <div className="text-center my-6 pt-4 animate-fadeInUp opacity-0" style={{animationDelay: `${animationDelay}ms`}}>
-                   <h3 className="inline-block px-4 py-2 text-2xl lg:text-3xl font-bold text-amber-400 bg-slate-700/70 rounded-lg shadow">
+                <div className="text-center my-10 pt-4 animate-fadeInUp opacity-0" style={{animationDelay: `${animationDelay}ms`}}>
+                   <h3 className="inline-block px-6 py-3 text-2xl lg:text-3xl font-bold text-amber-400 bg-slate-700/70 rounded-lg shadow-lg">
                         {t.juz} {ayah.juz}
                    </h3>
                 </div>
               )}
                {pageChanged && (
-                <div className="text-center my-4 text-gray-400 font-semibold flex items-center justify-center animate-fadeInUp opacity-0" style={{animationDelay: `${animationDelay}ms`}}>
+                <div className="text-center my-6 text-gray-400 font-semibold flex items-center justify-center animate-fadeInUp opacity-0" style={{animationDelay: `${animationDelay}ms`}}>
                     <hr className="w-1/4 border-gray-600"/>
                     <span className="mx-4">{t.page} {ayah.page}</span>
                     <hr className="w-1/4 border-gray-600"/>
@@ -98,33 +98,33 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
               <li
                 ref={(el) => (ayahRefs.current[ayah.number] = el)}
                 onClick={() => onAyahClick(ayah)}
-                className={`p-4 sm:p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer relative animate-fadeInUp opacity-0 ${colorClass}`}
+                className={`p-6 sm:p-8 md:p-10 rounded-xl shadow-md transition-all duration-300 cursor-pointer relative animate-fadeInUp opacity-0 ${colorClass}`}
                 style={{animationDelay: `${animationDelay}ms`}}
                 aria-selected={isSelected}
               >
                 {count > 0 && (
-                  <span className={`absolute top-2 right-2 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center transition-colors ${count > 7 ? 'bg-amber-600' : 'bg-teal-600'}`}>
+                  <span className={`absolute top-3 right-3 text-white text-xs font-bold rounded-full h-7 w-7 flex items-center justify-center transition-colors shadow-sm ${count > 7 ? 'bg-amber-600' : 'bg-teal-600'}`}>
                     {count}
                   </span>
                 )}
                 
-                <p className={`text-right text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-loose md:leading-relaxed font-quran ${isSelected ? 'text-white' : 'text-gray-200'}`} dir="rtl">
-                  {ayah.text} <span className="text-amber-400">({ayah.numberInSurah})</span>
+                <p className={`text-right text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran leading-[2.8] sm:leading-[3] md:leading-[3.2] lg:leading-[3.5] ${isSelected ? 'text-white' : 'text-gray-100'}`} dir="rtl">
+                  {ayah.text} <span className="text-amber-400 inline-block px-2">({ayah.numberInSurah})</span>
                 </p>
 
                 {ayah.translationText && (
-                    <p className={`text-left text-base sm:text-lg lg:text-xl mt-4 text-gray-400`} dir="ltr">
+                    <p className={`text-left text-base sm:text-lg lg:text-xl mt-6 text-gray-400 leading-relaxed`} dir="ltr">
                         {ayah.translationText}
                     </p>
                 )}
 
-                <div className="mt-6 pt-4 border-t border-slate-700 flex justify-start">
+                <div className="mt-8 pt-6 border-t border-slate-700 flex justify-start">
                   <button 
                     onClick={(e) => {
                         e.stopPropagation();
                         onShowTafsir(ayah);
                     }}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-amber-300 bg-slate-700/60 rounded-full hover:bg-slate-700 transition-all duration-200 active:scale-95"
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-300 bg-slate-700/60 rounded-full hover:bg-slate-700 hover:text-amber-200 transition-all duration-200 active:scale-95"
                     aria-label={`${t.interpretation} ${ayah.numberInSurah}`}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -140,7 +140,7 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
       </ul>
       
       {!isLastSurah && nextSurahName && (
-        <div className="mt-12 text-center animate-fadeInUp opacity-0" style={{animationDelay: '800ms'}}>
+        <div className="mt-16 mb-8 text-center animate-fadeInUp opacity-0" style={{animationDelay: '800ms'}}>
             <button
                 onClick={onGoToNextSurah}
                 className="px-8 py-4 bg-amber-500 text-slate-900 font-bold text-lg rounded-lg shadow-lg hover:bg-amber-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-amber-400"
