@@ -52,7 +52,7 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
       
       {surah.displayBasmalah && (
           <div className="my-8 animate-fadeInUp opacity-0" style={{animationDelay: '300ms'}}>
-            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran text-white leading-[2.2]">
+            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran text-white leading-[2.1]">
               بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
             </p>
           </div>
@@ -108,7 +108,7 @@ const AyahDisplay: React.FC<AyahDisplayProps> = ({ surah, isLoading, onAyahClick
                   </span>
                 )}
                 
-                <p className={`text-right text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran leading-[2.2] sm:leading-[2.4] md:leading-[2.5] lg:leading-[2.6] ${isSelected ? 'text-white' : 'text-gray-100'}`} dir="rtl">
+                <p className={`text-right text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-quran leading-[2.1] sm:leading-[2.2] md:leading-[2.3] lg:leading-[2.4] ${isSelected ? 'text-white' : 'text-gray-100'}`} dir="rtl">
                   {ayah.text} <span className="text-amber-400 inline-block px-1">({ayah.numberInSurah})</span>
                 </p>
 
