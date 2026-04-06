@@ -1,5 +1,5 @@
 {
-  "name": "Quran Elkareem - قرآن الكريم",
-  "description": "An application to help users memorize the Holy Quran by listening to verses recited by Sheikh Al-Husary and using a color-coding system to track memorization progress.",
+  "name": "Quran Kareem - قرآن الكريم | المعين لحفظ القرآن",
+  "description": "تطبيق قرآن الكريم - المعين لحفظ كلام رب العالمين. استمع للقرآن الكريم بصوت الشيخ الحصري وتابع تقدمك في الحفظ بنظام تلوين الآيات.",
   "requestFramePermissions": []
 }

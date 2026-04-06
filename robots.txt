@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://quran-kareem-app.netlify.app/sitemap.xml

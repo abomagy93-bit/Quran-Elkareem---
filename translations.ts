@@ -43,7 +43,9 @@ export const translations = {
     errorLoadingSurahList: "فشلت قائمة السور في التحميل. يرجى التحقق من اتصالك بالإنترنت.",
     surah: "سورة",
     ayahs: "آيات",
-    tafsirMoyassar: "التفسير الميسر"
+    tafsirMoyassar: "التفسير الميسر",
+    ahlAlQuran: "أهل القرآن",
+    ahlAlQuranTitle: "موقع أهل القرآن"
   },
   en: {
     appTitle: "Quran Kareem",
@@ -88,6 +90,8 @@ export const translations = {
     errorLoadingSurahList: "Failed to load Surah list. Please check your internet connection.",
     surah: "Surah",
     ayahs: "Ayahs",
-    tafsirMoyassar: "Al-Tafsir Al-Muyassar"
+    tafsirMoyassar: "Al-Tafsir Al-Muyassar",
+    ahlAlQuran: "Ahl Al-Quran",
+    ahlAlQuranTitle: "Ahl Al-Quran Website"
   }
 };

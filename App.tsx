@@ -24,11 +24,11 @@ const HeaderButton = React.forwardRef<HTMLButtonElement, {
   children: React.ReactNode;
   className?: string;
 }>(({ onClick, label, title, children, className = '' }, ref) => (
-  <div className="flex flex-col items-center justify-center w-14 text-center">
-    <button ref={ref} onClick={onClick} title={title} aria-label={title} className={`h-10 w-10 flex items-center justify-center rounded-full transition-colors ${className}`}>
+  <div className="flex flex-col items-center justify-center w-11 text-center">
+    <button ref={ref} onClick={onClick} title={title} aria-label={title} className={`h-8 w-8 flex items-center justify-center rounded-full transition-colors ${className}`}>
       {children}
     </button>
-    <span className="text-xs text-gray-400 mt-1">{label}</span>
+    <span className="text-[10px] text-gray-400 mt-0.5 leading-none">{label}</span>
   </div>
 ));
 HeaderButton.displayName = 'HeaderButton';
@@ -229,13 +229,23 @@ export function App() {
     <div className="text-white min-h-screen flex flex-col">
       <div className="sticky top-0 z-30">
         <header className="bg-slate-800/80 backdrop-blur-sm shadow-lg border-b border-slate-700/50">
-          <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 md:px-6 py-2">
-            <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-amber-400 leading-tight">{t.appTitle}</h1>
-              <p className="text-sm sm:text-base text-gray-200 mt-1 leading-tight">{t.appSubtitle}</p>
-              {surahInfoString && <p className="text-[10px] sm:text-xs text-gray-400 mt-1 truncate">{surahInfoString}</p>}
+          <div className="container mx-auto flex justify-between items-center px-2 sm:px-3 py-1">
+            <div className="flex-shrink-1 min-w-0">
+              <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-amber-400 leading-tight truncate">{t.appTitle}</h1>
+              <p className="text-[10px] sm:text-xs text-gray-200 mt-0.5 leading-tight truncate">{t.appSubtitle}</p>
+              {surahInfoString && <p className="text-[9px] sm:text-[10px] text-gray-400 mt-0.5 truncate">{surahInfoString}</p>}
             </div>
-            <div className="flex items-center gap-0">
+            <div className="flex items-center gap-0 flex-shrink-0">
+               <HeaderButton
+                  onClick={() => window.open('https://quran-fm.netlify.app', '_blank')}
+                  label={t.ahlAlQuran}
+                  title={t.ahlAlQuranTitle}
+                  className="hover:bg-slate-700 text-white"
+               >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                  </svg>
+               </HeaderButton>
                <HeaderButton
                   onClick={() => setLanguage(l => l === 'ar' ? 'en' : 'ar')}
                   label={language === 'ar' ? 'English' : 'عربي'}
@@ -251,7 +261,7 @@ export function App() {
                   className="hover:bg-slate-700"
                   ref={settingsButtonRef}
                >
-                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-300 ${isSelectorPanelOpen ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 transition-transform duration-300 ${isSelectorPanelOpen ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066 2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                  </svg>
@@ -262,7 +272,7 @@ export function App() {
                   title={t.prayerTimesTitle}
                   className="hover:bg-slate-700 text-white"
                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V9.586a1 1 0 01.293-.707l6-6a1 1 0 011.414 0l6 6a1 1 0 01.293.707V21M7 21v-4a1 1 0 011-1h8a1 1 0 011 1v4" />
                   </svg>
                </HeaderButton>
@@ -272,7 +282,7 @@ export function App() {
                  title={t.radioTitle}
                  className={`hover:bg-slate-700 ${isRadioPlaying ? 'text-amber-400' : 'text-white'}`}
                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                      <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636a9 9 0 010 12.728m-12.728-12.728a9 9 0 0112.728 0M12 18a6 6 0 100-12 6 6 0 000 12z" />
                      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
